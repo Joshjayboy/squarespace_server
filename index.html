@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SCI Middle East Chapter - Forms</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: transparent;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: #2a5298;
+        }
+
+        .tab.active {
+            background: white;
+            color: #2a5298;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            color: #2a5298;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .error-message {
+            color: crimson;
+            font-size: 0.9em;
+            margin-top: 5px;
+            min-height: 18px;
+        }
+
+        .membership-options,
+        .event-options {
+            display: grid;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .membership-option,
+        .event-option {
+            position: relative;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .membership-option:hover,
+        .event-option:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .membership-option.selected,
+        .event-option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea10, #764ba210);
+        }
+
+        .membership-option input[type="radio"],
+        .event-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .membership-header,
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .membership-name,
+        .event-name {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #2a5298;
+        }
+
+        .membership-price,
+        .event-price {
+            font-size: 1.3em;
+            font-weight: 800;
+            color: #ff6b35;
+        }
+
+        .membership-benefits,
+        .event-benefits {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .current-member {
+            background: #f8f9ff;
+            border: 1px solid #d0d7ff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .event-info {
+            background: #f0f8ff;
+            border: 1px solid #d0d7ff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .event-info h3 {
+            color: #2a5298;
+            margin-bottom: 10px;
+        }
+
+        .guests-section {
+            background: #f8f9ff;
+            border: 1px solid #d0d7ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .guest-input {
+            margin-bottom: 10px;
+        }
+
+        .guest-input:last-child {
+            margin-bottom: 0;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+        }
+
+        #membershipError,
+        #eventError {
+            margin-top: 8px;
+            color: crimson;
+            font-size: 0.95em;
+            min-height: 18px;
+        }
+
+        .deadline-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+
+        .deadline-notice strong {
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+
+            .tab-content {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .form-row .form-group {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SCI Middle East Chapter</h1>
+            <p>Membership & Event Registration</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('membership')">Membership Application</button>
+            <button class="tab" onclick="showTab('event')">Event Registration</button>
+        </div>
+
+        <!-- Membership Form -->
+        <div id="membership" class="tab-content active">
+            <form id="membershipForm" novalidate>
+                <div class="section">
+                    <h2 class="section-title">Personal Information</h2>
+
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required />
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth *</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" required />
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required />
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required />
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address *</label>
+                        <textarea id="address" name="address" rows="3" required></textarea>
+                        <div class="error-message"></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="current-member">
+                        <label for="sciMembership">Current SCI International Membership Number (if applicable)</label>
+                        <input type="text" id="sciMembership" name="sciMembership"
+                            placeholder="Leave blank if not applicable" />
+                        <div class="error-message"></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Membership Type Selection</h2>
+                    <p style="margin-bottom: 20px; color: #666;">Please select your preferred membership level:</p>
+
+                    <div class="membership-options" id="membershipOptions">
+                        <label class="membership-option" tabindex="0">
+                            <input type="radio" name="membership" value="regular" />
+                            <div class="membership-header">
+                                <span class="membership-name">Regular</span>
+                                <span class="membership-price">$120</span>
+                            </div>
+                            <p class="membership-benefits">1 entry pass for gala dinner</p>
+                        </label>
+
+                        <label class="membership-option" tabindex="0">
+                            <input type="radio" name="membership" value="bronze" />
+                            <div class="membership-header">
+                                <span class="membership-name">Bronze</span>
+                                <span class="membership-price">$350</span>
+                            </div>
+                            <p class="membership-benefits">2 entry passes for gala dinner</p>
+                        </label>
+
+                        <label class="membership-option" tabindex="0">
+                            <input type="radio" name="membership" value="silver" />
+                            <div class="membership-header">
+                                <span class="membership-name">Silver</span>
+                                <span class="membership-price">$500</span>
+                            </div>
+                            <p class="membership-benefits">2 entry passes + front stage table</p>
+                        </label>
+
+                        <label class="membership-option" tabindex="0">
+                            <input type="radio" name="membership" value="gold" />
+                            <div class="membership-header">
+                                <span class="membership-name">Gold</span>
+                                <span class="membership-price">$1,000</span>
+                            </div>
+                            <p class="membership-benefits">Premium benefits package</p>
+                        </label>
+
+                        <label class="membership-option" tabindex="0">
+                            <input type="radio" name="membership" value="lifetime" />
+                            <div class="membership-header">
+                                <span class="membership-name">Honorable Lifetime Member</span>
+                                <span class="membership-price">$1,500</span>
+                            </div>
+                            <p class="membership-benefits">Lifetime membership + all benefits</p>
+                        </label>
+
+                        <label class="membership-option" tabindex="0">
+                            <input type="radio" name="membership" value="pearl" />
+                            <div class="membership-header">
+                                <span class="membership-name">Pearl Foundation</span>
+                                <span class="membership-price">$5,000</span>
+                            </div>
+                            <p class="membership-benefits">VIP package + front stage table for 8</p>
+                        </label>
+                    </div>
+                    <div id="membershipError" class="error-message"></div>
+                </div>
+
+                <div style="text-align:center; margin-top: 30px;">
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Event Registration Form -->
+        <div id="event" class="tab-content">
+            <form id="eventForm" novalidate>
+                <div class="deadline-notice">
+                    <strong>Important:</strong> This form must be completed and submitted by <strong>July 31st</strong>.
+                    Reservation will be valid once payment has been received.
+                </div>
+
+                <div class="event-info">
+                    <h3>1st Gala Event</h3>
+                    <p><strong>Dates:</strong> September 12th and 13th</p>
+                    <p><strong>Venue:</strong> Waldorf Astoria Doha West Bay</p>
+                    <p><strong>Contact:</strong> info@scimiddleeast.org</p>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Personal Information</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventName">Name *</label>
+                            <input type="text" id="eventName" name="eventName" required />
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventSurname">Surname *</label>
+                            <input type="text" id="eventSurname" name="eventSurname" required />
+                            <div class="error-message"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventAddress">Address *</label>
+                        <textarea id="eventAddress" name="eventAddress" rows="2" required></textarea>
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventZip">ZIP Code *</label>
+                            <input type="text" id="eventZip" name="eventZip" required />
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventCity">City *</label>
+                            <input type="text" id="eventCity" name="eventCity" required />
+                            <div class="error-message"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventCountry">Country *</label>
+                        <input type="text" id="eventCountry" name="eventCountry" required />
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventEmail">Email *</label>
+                            <input type="email" id="eventEmail" name="eventEmail" required />
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventPhone">Phone *</label>
+                            <input type="tel" id="eventPhone" name="eventPhone" required />
+                            <div class="error-message"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2 class="section-title">Event Selection</h2>
+                    <p style="margin-bottom: 20px; color: #666;">Please select which event(s) you would like to attend:
+                    </p>
+
+                    <div class="event-options">
+                        <label class="event-option" tabindex="0">
+                            <input type="radio" name="eventType" value="september12" />
+                            <div class="event-header">
+                                <span class="event-name">September 12th Only</span>
+                                <span class="event-price">$250 per person</span>
+                            </div>
+                            <p class="event-benefits">One Event Night</p>
+                        </label>
+
+                        <label class="event-option" tabindex="0">
+                            <input type="radio" name="eventType" value="september13" />
+                            <div class="event-header">
+                                <span class="event-name">September 13th Only</span>
+                                <span class="event-price">$250 per person</span>
+                            </div>
+                            <p class="event-benefits">One Event Night</p>
+                        </label>
+
+                        <label class="event-option" tabindex="0">
+                            <input type="radio" name="eventType" value="both" />
+                            <div class="event-header">
+                                <span class="event-name">Both Nights</span>
+                                <span class="event-price">$450 per person</span>
+                            </div>
+                            <p class="event-benefits">Two Event Nights (September 12th & 13th)</p>
+                        </label>
+                    </div>
+                    <div id="eventError" class="error-message"></div>
+                </div>
+
+                <div class="section">
+                    <div class="form-group">
+                        <label for="guestCount">Number of Accompanying Guests</label>
+                        <input type="number" id="guestCount" name="guestCount" min="0" max="10" value="0" />
+                        <div class="error-message"></div>
+                    </div>
+
+                    <div class="guests-section" id="guestsSection" style="display: none;">
+                        <h3 style="color: #2a5298; margin-bottom: 15px;">Guest Names</h3>
+                        <div id="guestNames"></div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-top: 30px;">
+                    <button type="submit" class="submit-btn">Submit Registration</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-footer">
+            <p><strong>Website:</strong> www.scimiddleeast.org | <strong>Email:</strong> info@scimiddleeast.org</p>
+            <small>© 2025 SCI Middle East Chapter</small>
+        </div>
+    </div>
+
+    <script>
+        let selectedMembership = null;
+        let selectedEvent = null;
+
+        // Tab switching functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Membership option selection
+        document.querySelectorAll('.membership-option input[type="radio"]').forEach((radio) => {
+            radio.addEventListener('change', function () {
+                selectedMembership = this.value;
+                document.querySelectorAll('.membership-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                this.closest('.membership-option').classList.add('selected');
+                document.getElementById('membershipError').textContent = '';
+            });
+        });
+
+        // Event option selection
+        document.querySelectorAll('.event-option input[type="radio"]').forEach((radio) => {
+            radio.addEventListener('change', function () {
+                selectedEvent = this.value;
+                document.querySelectorAll('.event-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                this.closest('.event-option').classList.add('selected');
+                document.getElementById('eventError').textContent = '';
+            });
+        });
+
+        // Guest count functionality
+        document.getElementById('guestCount').addEventListener('input', function () {
+            const count = parseInt(this.value) || 0;
+            const guestsSection = document.getElementById('guestsSection');
+            const guestNames = document.getElementById('guestNames');
+
+            if (count > 0) {
+                guestsSection.style.display = 'block';
+                guestNames.innerHTML = '';
+
+                for (let i = 1; i <= count; i++) {
+                    const guestInput = document.createElement('div');
+                    guestInput.className = 'guest-input';
+                    guestInput.innerHTML = `
+                        <label for="guest${i}">Guest ${i} Name *</label>
+                        <input type="text" id="guest${i}" name="guest${i}" required />
+                        <div class="error-message"></div>
+                    `;
+                    guestNames.appendChild(guestInput);
+                }
+            } else {
+                guestsSection.style.display = 'none';
+            }
+        });
+
+        // Validation functions
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function isValidPhone(phone) {
+            return /^[+\d][\d\s-]{6,}$/.test(phone);
+        }
+
+        function showError(inputId, message) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const errorDiv = input.parentElement.querySelector('.error-message');
+            if (errorDiv) {
+                errorDiv.textContent = message;
+            }
+        }
+
+        function clearErrors(form) {
+            form.querySelectorAll('.error-message').forEach(el => (el.textContent = ''));
+        }
+
+        // Membership form submission
+        // document.getElementById('membershipForm').addEventListener('submit', function (e) {
+        //     e.preventDefault();
+
+        //     const form = this;
+        //     const formData = new FormData(form);
+        //     const data = {};
+        //     let valid = true;
+
+        //     clearErrors(form);
+
+        //     for (let [key, value] of formData.entries()) {
+        //         data[key] = value.trim();
+        //     }
+
+        //     // Validate fields
+        //     if (!data.name) {
+        //         showError('name', 'Please enter your full name.');
+        //         valid = false;
+        //     }
+
+        //     if (!data.dateOfBirth) {
+        //         showError('dateOfBirth', 'Please enter your date of birth.');
+        //         valid = false;
+        //     }
+
+        //     if (!data.email) {
+        //         showError('email', 'Please enter your email address.');
+        //         valid = false;
+        //     } else if (!isValidEmail(data.email)) {
+        //         showError('email', 'Please enter a valid email address.');
+        //         valid = false;
+        //     }
+
+        //     if (!data.phone) {
+        //         showError('phone', 'Please enter your phone number.');
+        //         valid = false;
+        //     } else if (!isValidPhone(data.phone)) {
+        //         showError('phone', 'Please enter a valid phone number.');
+        //         valid = false;
+        //     }
+
+        //     if (!data.address) {
+        //         showError('address', 'Please enter your address.');
+        //         valid = false;
+        //     }
+
+        //     if (!selectedMembership) {
+        //         document.getElementById('membershipError').textContent = 'Please select a membership type before submitting.';
+        //         valid = false;
+        //     }
+
+        //     if (!valid) return;
+
+        //     const membershipDetails = {
+        //         regular: { name: 'Regular', price: '$120', benefits: '1 entry pass for gala dinner', amount: 120 },
+        //         bronze: { name: 'Bronze', price: '$350', benefits: '2 entry passes for gala dinner', amount: 350 },
+        //         silver: { name: 'Silver', price: '$500', benefits: '2 entry passes + front stage table', amount: 500 },
+        //         gold: { name: 'Gold', price: '$1,000', benefits: 'Premium benefits package', amount: 1000 },
+        //         lifetime: { name: 'Honorable Lifetime Member', price: '$1,500', benefits: 'Lifetime membership + all benefits', amount: 1500 },
+        //         pearl: { name: 'Pearl Foundation', price: '$5,000', benefits: 'VIP package + front stage table for 8', amount: 5000 }
+        //     };
+
+        //     console.log('=== SCI MIDDLE EAST MEMBERSHIP FORM SUBMISSION ===');
+        //     console.log('Selected Membership Type:', selectedMembership);
+        //     console.log('Membership Details:', membershipDetails[selectedMembership]);
+        //     console.log('Amount for Selected Plan:', membershipDetails[selectedMembership].amount);
+        //     console.log('Form Data:', data);
+        //     console.log('====================================================');
+
+        //     if (confirm(`Thank you ${data.name}!\n\nYour application for ${membershipDetails[selectedMembership].name} membership (${membershipDetails[selectedMembership].price}) has been submitted successfully.\n\nPlease check the console for detailed form data.`)) {
+        //         form.reset();
+        //         selectedMembership = null;
+        //         document.querySelectorAll('.membership-option').forEach(option => option.classList.remove('selected'));
+        //     }
+        // });
+
+        // Event form submission
+        // document.getElementById('eventForm').addEventListener('submit', function (e) {
+        //     e.preventDefault();
+
+        //     const form = this;
+        //     const formData = new FormData(form);
+        //     const data = {};
+        //     let valid = true;
+
+        //     clearErrors(form);
+
+        //     for (let [key, value] of formData.entries()) {
+        //         data[key] = value.trim();
+        //     }
+
+        //     // Validate required fields
+        //     const requiredFields = [
+        //         { id: 'eventName', message: 'Please enter your name.' },
+        //         { id: 'eventSurname', message: 'Please enter your surname.' },
+        //         { id: 'eventAddress', message: 'Please enter your address.' },
+        //         { id: 'eventZip', message: 'Please enter your ZIP code.' },
+        //         { id: 'eventCity', message: 'Please enter your city.' },
+        //         { id: 'eventCountry', message: 'Please enter your country.' },
+        //         { id: 'eventEmail', message: 'Please enter your email address.' },
+        //         { id: 'eventPhone', message: 'Please enter your phone number.' }
+        //     ];
+
+        //     requiredFields.forEach(field => {
+        //         if (!data[field.id.replace('event', '').toLowerCase()]) {
+        //             showError(field.id, field.message);
+        //             valid = false;
+        //         }
+        //     });
+
+        //     // Validate email
+        //     if (data.email && !isValidEmail(data.email)) {
+        //         showError('eventEmail', 'Please enter a valid email address.');
+        //         valid = false;
+        //     }
+
+        //     // Validate phone
+        //     if (data.phone && !isValidPhone(data.phone)) {
+        //         showError('eventPhone', 'Please enter a valid phone number.');
+        //         valid = false;
+        //     }
+
+        //     // Validate event selection
+        //     if (!selectedEvent) {
+        //         document.getElementById('eventError').textContent = 'Please select an event option.';
+        //         valid = false;
+        //     }
+
+        //     // Validate guest names if guests are specified
+        //     const guestCount = parseInt(data.guestCount) || 0;
+        //     if (guestCount > 0) {
+        //         for (let i = 1; i <= guestCount; i++) {
+        //             const guestName = data[`guest${i}`];
+        //             if (!guestName) {
+        //                 showError(`guest${i}`, `Please enter guest ${i} name.`);
+        //                 valid = false;
+        //             }
+        //         }
+        //     }
+
+        //     if (!valid) return;
+
+        //     const eventDetails = {
+        //         september12: { name: 'September 12th Only', price: '$250 per person', amount: 250 },
+        //         september13: { name: 'September 13th Only', price: '$250 per person', amount: 250 },
+        //         both: { name: 'Both Nights', price: '$450 per person', amount: 450 }
+        //     };
+
+        //     const totalAmount = eventDetails[selectedEvent].amount * (1 + guestCount);
+
+        //     console.log('=== SCI MIDDLE EAST EVENT REGISTRATION SUBMISSION ===');
+        //     console.log('Selected Event:', selectedEvent);
+        //     console.log('Event Details:', eventDetails[selectedEvent]);
+        //     console.log('Number of Guests:', guestCount);
+        //     console.log('Total Amount:', `$${totalAmount}`);
+        //     console.log('Form Data:', data);
+        //     console.log('======================================================');
+
+        //     if (confirm(`Thank you ${data.eventName} ${data.eventSurname}!\n\nYour registration for ${eventDetails[selectedEvent].name} (${eventDetails[selectedEvent].price}) with ${guestCount} guest(s) has been submitted successfully.\nTotal amount: $${totalAmount}.\n\nPlease check the console for detailed form data.`)) {
+        //         form.reset();
+        //         selectedEvent = null;
+        //         document.querySelectorAll('.event-option').forEach(option => option.classList.remove('selected'));
+        //         document.getElementById('guestsSection').style.display = 'none';
+        //         document.getElementById('guestNames').innerHTML = '';
+        //         document.getElementById('guestCount').value = '0';
+        //     }
+        // });
+
+
+
+        // Add this function to handle the API request
+        async function sendPaymentRequest(paymentData) {
+            try {
+                const response = await fetch('https://api-qa.myfatoorah.com/v2/initiatePayment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: "6tQ_CdlzvufRkQkMFh1N0KOjPZCwequLwj5L08qmSgPe3pQn8gDwA5fe5OFAzhoQFHuI3HSwf1EQW51aFlvbOzGL5uOUura9ZUqBRbjO5EMuFP9sMY4sTjEVyWw5NH8Ua-BtgJwtL76bn0VVnNjq-KszqGAQkkjfyYbgpT2aY55uR7bSNhwChSMKNzFtC5y53f8riAOKZGFrLalcTq-u2-CoEoPAVCgbntt8hAFQ_hZiMNFJBpvSqQ9VW8ZE6YuOLoFiQejfihrfZcj08QiGCR7PI-Jlh4lShq6Buix9hb49h3DSKcW52rWhR2uRU3Fh-oWjv8LdePyFVRH7ACu_NDofwFHIThq9QmJqpP7BvWRNmG4RXjCg5xga5v12t1RmCyn5JheDDEqcMNsr28iy7yhv0gxoWIjJAo9zilcAsL48s0Vs4V9AGlIUnVnw9w9QQA2-OfyzfZI_BUjCWKS2lIPhVjl2yibezQB2X1ZpdsD4DMvHNLFYg5898tsX6cYuci0OMx4SdJXcVUv9TZnUNpVD03I_tUd_AuJ5foLUZ-rjtchERD73lpXx9DwT2SI0xOQkqg0m2FbkoT28coErZEfdhRzh203mL36pWoJy3a-fVGunFT59-hHsVVdNWZAYB3KZxJxf0g-nD0qLhT6G_SNAPJye8Bog8EmrmCV6T-TGFGB7tE2TaZ5cJ55kcmxAhUNTOA"
+                    },
+                    body: JSON.stringify(paymentData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('Error:', error);
+                throw error;
+            }
+        }
+
+        // Modify the membership form submission handler
+        document.getElementById('membershipForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const form = this;
+            const formData = new FormData(form);
+            const data = {};
+            let valid = true;
+
+            clearErrors(form);
+
+            for (let [key, value] of formData.entries()) {
+                data[key] = value.trim();
+            }
+
+            // Validate fields (existing validation code remains the same)
+            // ...
+
+            if (!valid) return;
+
+            const membershipDetails = {
+                regular: { name: 'Regular', price: '$120', benefits: '1 entry pass for gala dinner', amount: 120 },
+                bronze: { name: 'Bronze', price: '$350', benefits: '2 entry passes for gala dinner', amount: 350 },
+                silver: { name: 'Silver', price: '$500', benefits: '2 entry passes + front stage table', amount: 500 },
+                gold: { name: 'Gold', price: '$1,000', benefits: 'Premium benefits package', amount: 1000 },
+                lifetime: { name: 'Honorable Lifetime Member', price: '$1,500', benefits: 'Lifetime membership + all benefits', amount: 1500 },
+                pearl: { name: 'Pearl Foundation', price: '$5,000', benefits: 'VIP package + front stage table for 8', amount: 5000 }
+            };
+
+            const selectedPlan = membershipDetails[selectedMembership];
+
+            try {
+                // const result = await sendPaymentRequest(paymentData);
+                const response = await fetch('http://localhost:3000/initiate-payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ InvoiceAmount: selectedPlan.amount, CurrencyIso: 'USD' })
+                });
+
+                const result = await response.json(); // <- FIXED
+
+
+                if (result.IsSuccess) {
+                    console.log("PaymentMethodId value", result.Data.PaymentMethods[0].PaymentMethodId)
+                    const PaymentMethodId = result.Data.PaymentMethods[0].PaymentMethodId;
+                    const InvoiceValue = result.Data.PaymentMethods[0].TotalAmount;
+
+                    console.log("Invoice value", result.Data.PaymentMethods[0].TotalAmount)
+                    alert(`Payment initiated successfully! Redirecting to payment page...`);
+
+                    try {
+                        console.log("Executing payment with PaymentMethodId:", PaymentMethodId, "and InvoiceValue:", InvoiceValue);
+                        const response = await fetch('http://localhost:3000/execute-payment', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ PaymentMethodId: PaymentMethodId, InvoiceValue: InvoiceValue })
+                        });
+
+                        const result = await response.json(); // <- FIXED
+
+                        if (result.IsSuccess) {
+                            console.log("PaymentURL value", result.Data.PaymentURL)
+                            window.location.href = result.Data.PaymentURL; // Redirect to payment URL
+                        }
+                        else {
+                            alert("there was an error in the execute payment request")
+                        }
+
+                    } catch (error) {
+                        console.error('Payment error:', error);
+                        alert('There was an error processing your payment. Please try again.');
+
+                    }
+
+
+                } else {
+                    alert('There was an error processing your payment. Please try again.');
+                }
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('There was an error processing your payment. Please try again.');
+            }
+        });
+
+        // Modify the event form submission handler similarly
+        document.getElementById('eventForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const form = this;
+            const formData = new FormData(form);
+            const data = {};
+            let valid = true;
+
+            clearErrors(form);
+
+            for (let [key, value] of formData.entries()) {
+                data[key] = value.trim();
+            }
+
+            // Validate fields (existing validation code remains the same)
+            // ...
+
+            if (!valid) return;
+
+            const eventDetails = {
+                september12: { name: 'September 12th Only', price: '$250 per person', amount: 250 },
+                september13: { name: 'September 13th Only', price: '$250 per person', amount: 250 },
+                both: { name: 'Both Nights', price: '$450 per person', amount: 450 }
+            };
+
+            const guestCount = parseInt(data.guestCount) || 0;
+            const totalAmount = eventDetails[selectedEvent].amount * (1 + guestCount);
+            const selectedEventDetail = eventDetails[selectedEvent];
+
+            // Prepare payment data
+            const paymentData = {
+                "PaymentMethodId": 1,
+                "CustomerName": `${data.eventName} ${data.eventSurname}`,
+                "DisplayCurrencyIso": "KWD",
+                "MobileCountryCode": "965",
+                "CustomerMobile": data.eventPhone,
+                "CustomerEmail": data.eventEmail,
+                "InvoiceValue": totalAmount,
+                "CallBackUrl": "https://scimiddleeast.org/success",
+                "ErrorUrl": "https://scimiddleeast.org/error",
+                "Language": "ar",
+                "CustomerReference": "noshipping-nosupplier",
+                "CustomerAddress": {
+                    "Block": "",
+                    "Street": "",
+                    "HouseBuildingNo": "",
+                    "AddressInstructions": data.eventAddress
+                },
+                "InvoiceItems": [
+                    {
+                        "ItemName": selectedEventDetail.name + " Event Registration",
+                        "Quantity": 1 + guestCount,
+                        "UnitPrice": selectedEventDetail.amount,
+                        "Weight": 0,
+                        "Width": 0,
+                        "Height": 0,
+                        "Depth": 0
+                    }
+                ]
+            };
+
+
+               try {
+                // const result = await sendPaymentRequest(paymentData);
+                const response = await fetch('http://localhost:3000/initiate-payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ InvoiceAmount: totalAmount, CurrencyIso: 'USD' })
+                });
+
+                const result = await response.json(); // <- FIXED
+
+
+                if (result.IsSuccess) {
+                    console.log("PaymentMethodId value", result.Data.PaymentMethods[0].PaymentMethodId)
+                    const PaymentMethodId = result.Data.PaymentMethods[0].PaymentMethodId;
+                    const InvoiceValue = result.Data.PaymentMethods[0].TotalAmount;
+
+                    console.log("Invoice value", result.Data.PaymentMethods[0].TotalAmount)
+                    alert(`Payment initiated successfully! Redirecting to payment page...`);
+
+                    try {
+                        console.log("Executing payment with PaymentMethodId:", PaymentMethodId, "and InvoiceValue:", InvoiceValue);
+                        const response = await fetch('http://localhost:3000/execute-payment', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ PaymentMethodId: PaymentMethodId, InvoiceValue: InvoiceValue })
+                        });
+
+                        const result = await response.json(); // <- FIXED
+
+                        if (result.IsSuccess) {
+                            console.log("PaymentURL value", result.Data.PaymentURL)
+                            window.location.href = result.Data.PaymentURL; // Redirect to payment URL
+                        }
+                        else {
+                            alert("there was an error in the execute payment request")
+                        }
+
+                    } catch (error) {
+                        console.error('Payment error:', error);
+                        alert('There was an error processing your payment. Please try again.');
+
+                    }
+
+
+                } else {
+                    alert('There was an error processing your payment. Please try again.');
+                }
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('There was an error processing your payment. Please try again.');
+            }
+            // try {
+            //     const result = await sendPaymentRequest(paymentData);
+
+            //     if (result.IsSuccess) {
+            //         alert(`Payment initiated successfully! Redirecting to payment page...`);
+            //         window.location.href = result.Data.PaymentURL;
+            //     } else {
+            //         alert('There was an error processing your payment. Please try again.');
+            //     }
+            // } catch (error) {
+            //     console.error('Payment error:', error);
+            //     alert('There was an error processing your payment. Please try again.');
+            // }
+        });
+    </script>
+</body>
+
+</html>
