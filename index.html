@@ -921,7 +921,7 @@
 
             try {
                 // const result = await sendPaymentRequest(paymentData);
-                const response = await fetch('http://localhost:3000/initiate-payment', {
+                const response = await fetch('https://squarespace-server.vercel.app/initiate-payment', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ InvoiceAmount: selectedPlan.amount, CurrencyIso: 'USD' })
@@ -936,11 +936,11 @@
                     const InvoiceValue = result.Data.PaymentMethods[0].TotalAmount;
 
                     console.log("Invoice value", result.Data.PaymentMethods[0].TotalAmount)
-                    alert(`Payment initiated successfully! Redirecting to payment page...`);
+                    // alert(`Payment initiated successfully! Redirecting to payment page...`);
 
                     try {
                         console.log("Executing payment with PaymentMethodId:", PaymentMethodId, "and InvoiceValue:", InvoiceValue);
-                        const response = await fetch('http://localhost:3000/execute-payment', {
+                        const response = await fetch('https://squarespace-server.vercel.app/execute-payment', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ PaymentMethodId: PaymentMethodId, InvoiceValue: InvoiceValue })
@@ -953,22 +953,24 @@
                             window.location.href = result.Data.PaymentURL; // Redirect to payment URL
                         }
                         else {
-                            alert("there was an error in the execute payment request")
+                            console.log("there was an error in the execute payment request")
+                            // alert("there was an error in the execute payment request")
                         }
 
                     } catch (error) {
                         console.error('Payment error:', error);
-                        alert('There was an error processing your payment. Please try again.');
+                        // alert('There was an error processing your payment. Please try again.');
 
                     }
 
 
                 } else {
-                    alert('There was an error processing your payment. Please try again.');
+                    console.log('There was an error processing your payment. Please try again.');
+                    // alert('There was an error processing your payment. Please try again.');
                 }
             } catch (error) {
                 console.error('Payment error:', error);
-                alert('There was an error processing your payment. Please try again.');
+                // alert('There was an error processing your payment. Please try again.');
             }
         });
 
@@ -1002,42 +1004,9 @@
             const totalAmount = eventDetails[selectedEvent].amount * (1 + guestCount);
             const selectedEventDetail = eventDetails[selectedEvent];
 
-            // Prepare payment data
-            const paymentData = {
-                "PaymentMethodId": 1,
-                "CustomerName": `${data.eventName} ${data.eventSurname}`,
-                "DisplayCurrencyIso": "KWD",
-                "MobileCountryCode": "965",
-                "CustomerMobile": data.eventPhone,
-                "CustomerEmail": data.eventEmail,
-                "InvoiceValue": totalAmount,
-                "CallBackUrl": "https://scimiddleeast.org/success",
-                "ErrorUrl": "https://scimiddleeast.org/error",
-                "Language": "ar",
-                "CustomerReference": "noshipping-nosupplier",
-                "CustomerAddress": {
-                    "Block": "",
-                    "Street": "",
-                    "HouseBuildingNo": "",
-                    "AddressInstructions": data.eventAddress
-                },
-                "InvoiceItems": [
-                    {
-                        "ItemName": selectedEventDetail.name + " Event Registration",
-                        "Quantity": 1 + guestCount,
-                        "UnitPrice": selectedEventDetail.amount,
-                        "Weight": 0,
-                        "Width": 0,
-                        "Height": 0,
-                        "Depth": 0
-                    }
-                ]
-            };
-
 
                try {
-                // const result = await sendPaymentRequest(paymentData);
-                const response = await fetch('http://localhost:3000/initiate-payment', {
+                const response = await fetch('https://squarespace-server.vercel.app/initiate-payment', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ InvoiceAmount: totalAmount, CurrencyIso: 'USD' })
@@ -1052,11 +1021,11 @@
                     const InvoiceValue = result.Data.PaymentMethods[0].TotalAmount;
 
                     console.log("Invoice value", result.Data.PaymentMethods[0].TotalAmount)
-                    alert(`Payment initiated successfully! Redirecting to payment page...`);
+                    // alert(`Payment initiated successfully! Redirecting to payment page...`);
 
                     try {
                         console.log("Executing payment with PaymentMethodId:", PaymentMethodId, "and InvoiceValue:", InvoiceValue);
-                        const response = await fetch('http://localhost:3000/execute-payment', {
+                        const response = await fetch('https://squarespace-server.vercel.app/execute-payment', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ PaymentMethodId: PaymentMethodId, InvoiceValue: InvoiceValue })
@@ -1069,36 +1038,25 @@
                             window.location.href = result.Data.PaymentURL; // Redirect to payment URL
                         }
                         else {
-                            alert("there was an error in the execute payment request")
+                            console.log("there was an error in the execute payment request")
+                            // alert("there was an error in the execute payment request")
                         }
 
                     } catch (error) {
                         console.error('Payment error:', error);
-                        alert('There was an error processing your payment. Please try again.');
+                        // alert('There was an error processing your payment. Please try again.');
 
                     }
 
 
                 } else {
-                    alert('There was an error processing your payment. Please try again.');
+                    console.log('There was an error processing your payment. Please try again.');
+                    // alert('There was an error processing your payment. Please try again.');
                 }
             } catch (error) {
                 console.error('Payment error:', error);
-                alert('There was an error processing your payment. Please try again.');
+                // alert('There was an error processing your payment. Please try again.');
             }
-            // try {
-            //     const result = await sendPaymentRequest(paymentData);
-
-            //     if (result.IsSuccess) {
-            //         alert(`Payment initiated successfully! Redirecting to payment page...`);
-            //         window.location.href = result.Data.PaymentURL;
-            //     } else {
-            //         alert('There was an error processing your payment. Please try again.');
-            //     }
-            // } catch (error) {
-            //     console.error('Payment error:', error);
-            //     alert('There was an error processing your payment. Please try again.');
-            // }
         });
     </script>
 </body>

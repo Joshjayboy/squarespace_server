@@ -49,6 +49,7 @@ app.post("/execute-payment", (req, res) => {
     body: {
       PaymentMethodId,
       InvoiceValue,
+      DisplayCurrencyIso,
     },
     json: true,
   };
