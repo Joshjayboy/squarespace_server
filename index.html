@@ -460,9 +460,24 @@
                 </div>
 
                 <div style="text-align:center; margin-top: 30px;">
-                    <button type="submit" class="submit-btn">Submit Application</button>
+
+                    <button type="submit" class="submit-btn" id="sharedSubmitBtn">Submit Application</button>
+
                 </div>
+
+                <!-- <div style="text-align:center; margin-top: 30px;">
+                    <button class="submit-btn" id="sharedSubmitBtn">Submit Application</button>
+                </div> -->
+                <!-- Shared Submit Button -->
+                <!-- <div style="text-align:center; margin-top: 30px;">
+                    <button type="button" class="submit-btn" id="sharedSubmitBtn">Submit Application</button>
+                </div> -->
+
+
             </form>
+            <!-- <div style="text-align:center; margin-top: 30px;">
+                <button type="button" class="submit-btn" id="sharedSubmitBtn">Submit Application</button>
+            </div> -->
         </div>
 
         <!-- Event Registration Form -->
@@ -693,206 +708,17 @@
             form.querySelectorAll('.error-message').forEach(el => (el.textContent = ''));
         }
 
-        // Membership form submission
-        // document.getElementById('membershipForm').addEventListener('submit', function (e) {
-        //     e.preventDefault();
-
-        //     const form = this;
-        //     const formData = new FormData(form);
-        //     const data = {};
-        //     let valid = true;
-
-        //     clearErrors(form);
-
-        //     for (let [key, value] of formData.entries()) {
-        //         data[key] = value.trim();
-        //     }
-
-        //     // Validate fields
-        //     if (!data.name) {
-        //         showError('name', 'Please enter your full name.');
-        //         valid = false;
-        //     }
-
-        //     if (!data.dateOfBirth) {
-        //         showError('dateOfBirth', 'Please enter your date of birth.');
-        //         valid = false;
-        //     }
-
-        //     if (!data.email) {
-        //         showError('email', 'Please enter your email address.');
-        //         valid = false;
-        //     } else if (!isValidEmail(data.email)) {
-        //         showError('email', 'Please enter a valid email address.');
-        //         valid = false;
-        //     }
-
-        //     if (!data.phone) {
-        //         showError('phone', 'Please enter your phone number.');
-        //         valid = false;
-        //     } else if (!isValidPhone(data.phone)) {
-        //         showError('phone', 'Please enter a valid phone number.');
-        //         valid = false;
-        //     }
-
-        //     if (!data.address) {
-        //         showError('address', 'Please enter your address.');
-        //         valid = false;
-        //     }
-
-        //     if (!selectedMembership) {
-        //         document.getElementById('membershipError').textContent = 'Please select a membership type before submitting.';
-        //         valid = false;
-        //     }
-
-        //     if (!valid) return;
-
-        //     const membershipDetails = {
-        //         regular: { name: 'Regular', price: '$120', benefits: '1 entry pass for gala dinner', amount: 120 },
-        //         bronze: { name: 'Bronze', price: '$350', benefits: '2 entry passes for gala dinner', amount: 350 },
-        //         silver: { name: 'Silver', price: '$500', benefits: '2 entry passes + front stage table', amount: 500 },
-        //         gold: { name: 'Gold', price: '$1,000', benefits: 'Premium benefits package', amount: 1000 },
-        //         lifetime: { name: 'Honorable Lifetime Member', price: '$1,500', benefits: 'Lifetime membership + all benefits', amount: 1500 },
-        //         pearl: { name: 'Pearl Foundation', price: '$5,000', benefits: 'VIP package + front stage table for 8', amount: 5000 }
-        //     };
-
-        //     console.log('=== SCI MIDDLE EAST MEMBERSHIP FORM SUBMISSION ===');
-        //     console.log('Selected Membership Type:', selectedMembership);
-        //     console.log('Membership Details:', membershipDetails[selectedMembership]);
-        //     console.log('Amount for Selected Plan:', membershipDetails[selectedMembership].amount);
-        //     console.log('Form Data:', data);
-        //     console.log('====================================================');
-
-        //     if (confirm(`Thank you ${data.name}!\n\nYour application for ${membershipDetails[selectedMembership].name} membership (${membershipDetails[selectedMembership].price}) has been submitted successfully.\n\nPlease check the console for detailed form data.`)) {
-        //         form.reset();
-        //         selectedMembership = null;
-        //         document.querySelectorAll('.membership-option').forEach(option => option.classList.remove('selected'));
-        //     }
-        // });
-
-        // Event form submission
-        // document.getElementById('eventForm').addEventListener('submit', function (e) {
-        //     e.preventDefault();
-
-        //     const form = this;
-        //     const formData = new FormData(form);
-        //     const data = {};
-        //     let valid = true;
-
-        //     clearErrors(form);
-
-        //     for (let [key, value] of formData.entries()) {
-        //         data[key] = value.trim();
-        //     }
-
-        //     // Validate required fields
-        //     const requiredFields = [
-        //         { id: 'eventName', message: 'Please enter your name.' },
-        //         { id: 'eventSurname', message: 'Please enter your surname.' },
-        //         { id: 'eventAddress', message: 'Please enter your address.' },
-        //         { id: 'eventZip', message: 'Please enter your ZIP code.' },
-        //         { id: 'eventCity', message: 'Please enter your city.' },
-        //         { id: 'eventCountry', message: 'Please enter your country.' },
-        //         { id: 'eventEmail', message: 'Please enter your email address.' },
-        //         { id: 'eventPhone', message: 'Please enter your phone number.' }
-        //     ];
-
-        //     requiredFields.forEach(field => {
-        //         if (!data[field.id.replace('event', '').toLowerCase()]) {
-        //             showError(field.id, field.message);
-        //             valid = false;
-        //         }
-        //     });
-
-        //     // Validate email
-        //     if (data.email && !isValidEmail(data.email)) {
-        //         showError('eventEmail', 'Please enter a valid email address.');
-        //         valid = false;
-        //     }
-
-        //     // Validate phone
-        //     if (data.phone && !isValidPhone(data.phone)) {
-        //         showError('eventPhone', 'Please enter a valid phone number.');
-        //         valid = false;
-        //     }
-
-        //     // Validate event selection
-        //     if (!selectedEvent) {
-        //         document.getElementById('eventError').textContent = 'Please select an event option.';
-        //         valid = false;
-        //     }
-
-        //     // Validate guest names if guests are specified
-        //     const guestCount = parseInt(data.guestCount) || 0;
-        //     if (guestCount > 0) {
-        //         for (let i = 1; i <= guestCount; i++) {
-        //             const guestName = data[`guest${i}`];
-        //             if (!guestName) {
-        //                 showError(`guest${i}`, `Please enter guest ${i} name.`);
-        //                 valid = false;
-        //             }
-        //         }
-        //     }
-
-        //     if (!valid) return;
-
-        //     const eventDetails = {
-        //         september12: { name: 'September 12th Only', price: '$250 per person', amount: 250 },
-        //         september13: { name: 'September 13th Only', price: '$250 per person', amount: 250 },
-        //         both: { name: 'Both Nights', price: '$450 per person', amount: 450 }
-        //     };
-
-        //     const totalAmount = eventDetails[selectedEvent].amount * (1 + guestCount);
-
-        //     console.log('=== SCI MIDDLE EAST EVENT REGISTRATION SUBMISSION ===');
-        //     console.log('Selected Event:', selectedEvent);
-        //     console.log('Event Details:', eventDetails[selectedEvent]);
-        //     console.log('Number of Guests:', guestCount);
-        //     console.log('Total Amount:', `$${totalAmount}`);
-        //     console.log('Form Data:', data);
-        //     console.log('======================================================');
-
-        //     if (confirm(`Thank you ${data.eventName} ${data.eventSurname}!\n\nYour registration for ${eventDetails[selectedEvent].name} (${eventDetails[selectedEvent].price}) with ${guestCount} guest(s) has been submitted successfully.\nTotal amount: $${totalAmount}.\n\nPlease check the console for detailed form data.`)) {
-        //         form.reset();
-        //         selectedEvent = null;
-        //         document.querySelectorAll('.event-option').forEach(option => option.classList.remove('selected'));
-        //         document.getElementById('guestsSection').style.display = 'none';
-        //         document.getElementById('guestNames').innerHTML = '';
-        //         document.getElementById('guestCount').value = '0';
-        //     }
-        // });
-
-
-
-        // Add this function to handle the API request
-        async function sendPaymentRequest(paymentData) {
-            try {
-                const response = await fetch('https://api-qa.myfatoorah.com/v2/initiatePayment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: "6tQ_CdlzvufRkQkMFh1N0KOjPZCwequLwj5L08qmSgPe3pQn8gDwA5fe5OFAzhoQFHuI3HSwf1EQW51aFlvbOzGL5uOUura9ZUqBRbjO5EMuFP9sMY4sTjEVyWw5NH8Ua-BtgJwtL76bn0VVnNjq-KszqGAQkkjfyYbgpT2aY55uR7bSNhwChSMKNzFtC5y53f8riAOKZGFrLalcTq-u2-CoEoPAVCgbntt8hAFQ_hZiMNFJBpvSqQ9VW8ZE6YuOLoFiQejfihrfZcj08QiGCR7PI-Jlh4lShq6Buix9hb49h3DSKcW52rWhR2uRU3Fh-oWjv8LdePyFVRH7ACu_NDofwFHIThq9QmJqpP7BvWRNmG4RXjCg5xga5v12t1RmCyn5JheDDEqcMNsr28iy7yhv0gxoWIjJAo9zilcAsL48s0Vs4V9AGlIUnVnw9w9QQA2-OfyzfZI_BUjCWKS2lIPhVjl2yibezQB2X1ZpdsD4DMvHNLFYg5898tsX6cYuci0OMx4SdJXcVUv9TZnUNpVD03I_tUd_AuJ5foLUZ-rjtchERD73lpXx9DwT2SI0xOQkqg0m2FbkoT28coErZEfdhRzh203mL36pWoJy3a-fVGunFT59-hHsVVdNWZAYB3KZxJxf0g-nD0qLhT6G_SNAPJye8Bog8EmrmCV6T-TGFGB7tE2TaZ5cJ55kcmxAhUNTOA"
-                    },
-                    body: JSON.stringify(paymentData)
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const result = await response.json();
-                return result;
-            } catch (error) {
-                console.error('Error:', error);
-                throw error;
-            }
-        }
-
         // Modify the membership form submission handler
         document.getElementById('membershipForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
             const form = this;
+            const submitBtn = document.getElementById('sharedSubmitBtn');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Loading...";
+
+
             const formData = new FormData(form);
             const data = {};
             let valid = true;
@@ -906,7 +732,12 @@
             // Validate fields (existing validation code remains the same)
             // ...
 
-            if (!valid) return;
+            if (!valid) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit Application";
+                return;
+            }
+            // if (!valid) return;
 
             const membershipDetails = {
                 regular: { name: 'Regular', price: '$120', benefits: '1 entry pass for gala dinner', amount: 120 },
@@ -931,25 +762,18 @@
 
 
                 if (result.IsSuccess) {
-                    console.log("PaymentMethodId value", result.Data.PaymentMethods[0].PaymentMethodId)
                     const PaymentMethodId = result.Data.PaymentMethods[0].PaymentMethodId;
                     const InvoiceValue = result.Data.PaymentMethods[0].TotalAmount;
-
-                    console.log("Invoice value", result.Data.PaymentMethods[0].TotalAmount)
-                    // alert(`Payment initiated successfully! Redirecting to payment page...`);
-
                     try {
-                        console.log("Executing payment with PaymentMethodId:", PaymentMethodId, "and InvoiceValue:", InvoiceValue);
                         const response = await fetch('https://squarespace-server.vercel.app/execute-payment', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ PaymentMethodId: PaymentMethodId, InvoiceValue: InvoiceValue })
+                            body: JSON.stringify({ PaymentMethodId: PaymentMethodId, InvoiceValue: InvoiceValue, DisplayCurrencyIso: "USD" })
                         });
 
                         const result = await response.json(); // <- FIXED
 
                         if (result.IsSuccess) {
-                            console.log("PaymentURL value", result.Data.PaymentURL)
                             window.location.href = result.Data.PaymentURL; // Redirect to payment URL
                         }
                         else {
@@ -959,19 +783,20 @@
 
                     } catch (error) {
                         console.error('Payment error:', error);
-                        // alert('There was an error processing your payment. Please try again.');
 
                     }
 
 
                 } else {
                     console.log('There was an error processing your payment. Please try again.');
-                    // alert('There was an error processing your payment. Please try again.');
                 }
             } catch (error) {
                 console.error('Payment error:', error);
-                // alert('There was an error processing your payment. Please try again.');
+                // Restore button state if we didn’t redirect
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit Application";
             }
+
         });
 
         // Modify the event form submission handler similarly
@@ -979,6 +804,14 @@
             e.preventDefault();
 
             const form = this;
+            // const submitBtn = document.getElementById('submitEventBtn');
+            const submitBtn = document.getElementById('sharedSubmitBtn');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Loading...";
+
+
+
             const formData = new FormData(form);
             const data = {};
             let valid = true;
@@ -992,7 +825,12 @@
             // Validate fields (existing validation code remains the same)
             // ...
 
-            if (!valid) return;
+            if (!valid) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit Application";
+                return;
+            }
+            // if (!valid) return;
 
             const eventDetails = {
                 september12: { name: 'September 12th Only', price: '$250 per person', amount: 250 },
@@ -1005,7 +843,7 @@
             const selectedEventDetail = eventDetails[selectedEvent];
 
 
-               try {
+            try {
                 const response = await fetch('https://squarespace-server.vercel.app/initiate-payment', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1016,49 +854,46 @@
 
 
                 if (result.IsSuccess) {
-                    console.log("PaymentMethodId value", result.Data.PaymentMethods[0].PaymentMethodId)
                     const PaymentMethodId = result.Data.PaymentMethods[0].PaymentMethodId;
                     const InvoiceValue = result.Data.PaymentMethods[0].TotalAmount;
 
-                    console.log("Invoice value", result.Data.PaymentMethods[0].TotalAmount)
-                    // alert(`Payment initiated successfully! Redirecting to payment page...`);
 
                     try {
-                        console.log("Executing payment with PaymentMethodId:", PaymentMethodId, "and InvoiceValue:", InvoiceValue);
                         const response = await fetch('https://squarespace-server.vercel.app/execute-payment', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ PaymentMethodId: PaymentMethodId, InvoiceValue: InvoiceValue })
+                            body: JSON.stringify({ PaymentMethodId: PaymentMethodId, InvoiceValue: InvoiceValue, DisplayCurrencyIso: "USD"  })
                         });
 
                         const result = await response.json(); // <- FIXED
 
                         if (result.IsSuccess) {
-                            console.log("PaymentURL value", result.Data.PaymentURL)
-                            window.location.href = result.Data.PaymentURL; // Redirect to payment URL
+                            window.location.href = result.Data.PaymentURL;
                         }
                         else {
                             console.log("there was an error in the execute payment request")
-                            // alert("there was an error in the execute payment request")
                         }
 
                     } catch (error) {
                         console.error('Payment error:', error);
-                        // alert('There was an error processing your payment. Please try again.');
 
                     }
 
 
                 } else {
                     console.log('There was an error processing your payment. Please try again.');
-                    // alert('There was an error processing your payment. Please try again.');
                 }
             } catch (error) {
                 console.error('Payment error:', error);
-                // alert('There was an error processing your payment. Please try again.');
+                // Restore button state if we didn’t redirect
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit Application";
             }
+
         });
+
     </script>
+
 </body>
 
 </html>

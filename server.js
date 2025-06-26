@@ -36,7 +36,7 @@ app.post("/initiate-payment", (req, res) => {
   });
 });
 app.post("/execute-payment", (req, res) => {
-  const { PaymentMethodId, InvoiceValue } = req.body;
+  const { PaymentMethodId, InvoiceValue, DisplayCurrencyIso } = req.body;
 
   const options = {
     method: "POST",
